@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useQuery } from "@apollo/client";
+import Card from "./components/card.jsx";
+import getAllCharacters from './graphql/getAllCharacters.js'
+import { Box, Image, Center } from "@chakra-ui/react"
 
 function App() {
+  const { loading, error, data } = useQuery(getAllCharacters);
+
+  if (loading) return(
+    <Center>
+      <Box height="100vh">
+        <Image src="loading.svg"></Image>
+      </Box>
+    </Center>
+  )
+
+  if (error) return (
+    <Box height="100vh">
+      <p>Algo deu errado!</p>
+    </Box>
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box
+      pt="4"
+    >
+      <Card
+        data={data}
+      >
+      </Card>
+    </Box>
   );
 }
 

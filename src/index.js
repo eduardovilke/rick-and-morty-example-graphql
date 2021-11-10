@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { ChakraProvider, Box } from "@chakra-ui/react"
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { ApolloProvider } from "@apollo/client";
+import client from './services/apollo';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <ChakraProvider>
+    <Box 
+      w="100%" 
+      h="100%" 
+      bgGradient="linear-gradient(155deg, rgba(217,37,10,1) 0%, rgba(233,135,48,0.8155637254901961) 56%, rgba(217,37,10,1) 100%)"
+    >
+      <App />
+    </Box>
+    </ChakraProvider>
+  </ApolloProvider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
